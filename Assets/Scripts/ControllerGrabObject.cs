@@ -136,6 +136,7 @@ public class ControllerGrabObject : MonoBehaviour {
 			explosionSystem.transform.position = objectBody.position;
 
 			Destroy(explosion, 1f);
+			DestroyTargets(objectBody.position, 5f);
 			Destroy(destroyObject);
 			CreateNewGrenade();
 
@@ -153,6 +154,20 @@ public class ControllerGrabObject : MonoBehaviour {
 	private void CreateNewGrenade()
 	{
 		grenadeTemplate.GetComponent<InstantiateGrenade>().CreateGrenade();
+	}
+
+	private void DestroyTargets(Vector3 centre, float radius)
+	{
+		Collider[] hitColliders = Physics.OverlapSphere(centre, radius);
+		int i = 0;
+		while (i < hitColliders.Length)
+		{
+			if (hitColliders[i].CompareTag("Target"))
+			{
+				Destroy(hitColliders[i].GetComponent<Collider>().gameObject);
+			}
+			i++;
+		}
 	}
 
 }
