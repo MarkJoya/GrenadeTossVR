@@ -109,9 +109,11 @@ public class ControllerGrabObject : MonoBehaviour {
 			objectBody.angularVelocity = Controller.angularVelocity;
 
 			ExplodeStart(objectInHand);
+
 		}
 		// 4
 		objectInHand = null;
+
 	}
 
 	private void ExplodeStart(GameObject destroyObject)
@@ -122,19 +124,30 @@ public class ControllerGrabObject : MonoBehaviour {
 	private IEnumerator Explosion(GameObject destroyObject)
 	{
 		//TODO - set ignore collision between controller and grenade once thrown to prevent regrabbing of thrown grenade
-		//TODO - figure out how to push stuff to github
 		//Physics.IgnoreCollision(
 		yield return new WaitForSecondsRealtime(2.0f);
-		Rigidbody objectBody = destroyObject.GetComponent<Rigidbody>();
-		explosion = Instantiate(explosionPrefab);
-		ParticleSystem explosionSystem = explosion.GetComponent<ParticleSystem>();
-		explosionSystem.Play();
+		if (destroyObject != null)
+		{
+			Rigidbody objectBody = destroyObject.GetComponent<Rigidbody>();
+			explosion = Instantiate(explosionPrefab);
+			ParticleSystem explosionSystem = explosion.GetComponent<ParticleSystem>();
+			explosionSystem.Play();
 
-		explosionSystem.transform.position = objectBody.position;
+			explosionSystem.transform.position = objectBody.position;
 
-		Destroy(explosion, 1f);
-		Destroy(destroyObject);
-		CreateNewGrenade();
+			Destroy(explosion, 1f);
+			Destroy(destroyObject);
+			CreateNewGrenade();
+
+			//In case grenade gets regrabbed during explosion timer, disconnect everything
+			if (GetComponent<FixedJoint>())
+			{
+				GetComponent<FixedJoint>().connectedBody = null;
+				Destroy(GetComponent<FixedJoint>());
+				objectInHand = null;
+			}
+		}
+
 	}
 
 	private void CreateNewGrenade()
