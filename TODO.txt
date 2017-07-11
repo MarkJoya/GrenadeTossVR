@@ -1,0 +1,4 @@
+Regenerate target
+
+Comment code and separate out some explosion stuff into separate script
+Separate HEIRARCHY into categories too - you can do this with empty objects set at origin and just drag them in
