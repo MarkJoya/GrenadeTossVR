@@ -174,11 +174,19 @@ public class ControllerGrabObject : MonoBehaviour {
 		{
 			if (hitColliders[i].CompareTag("Target"))
 			{
-				Destroy(hitColliders[i].GetComponent<Collider>().gameObject);
-				CreateNewTarget(hitColliders[i].GetComponent<Collider>().gameObject);
+				GameObject target = hitColliders[i].GetComponent<Collider>().gameObject;
+				Destroy(target);
+				StartCoroutine(WaitAndCreateTarget(target));
+				
 			}
 			i++;
 		}
+	}
+
+	private IEnumerator WaitAndCreateTarget(GameObject target)
+	{
+		yield return new WaitForSecondsRealtime(2.0f);
+		CreateNewTarget(target);
 	}
 
 }
