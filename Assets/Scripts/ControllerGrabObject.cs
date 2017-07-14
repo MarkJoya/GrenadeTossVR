@@ -7,6 +7,7 @@ public class ControllerGrabObject : MonoBehaviour {
 	public GameObject explosionPrefab;
 	public GameObject grenadePrefab;
 	public GameObject targetTemplate;
+	public GameObject grenadeTemplate;
 
 	private GameObject explosion;
 
@@ -45,11 +46,6 @@ public class ControllerGrabObject : MonoBehaviour {
 		{
 			if (collidingObject)
 			{
-				if (collidingObject.CompareTag("GrenadeIcon"))
-				{
-					GameObject grenade = CreateNewGrenade(collidingObject.transform.position, collidingObject.transform.rotation);
-					collidingObject = grenade;
-				}
 				GrabObject();
 			}
 		}
@@ -118,8 +114,7 @@ public class ControllerGrabObject : MonoBehaviour {
 			objectBody.velocity = Controller.velocity;
 			objectBody.angularVelocity = Controller.angularVelocity;
 
-			ExplodeStart(objectInHand);
-
+			ExplodeStart(objectInHand);	
 		}
 		// 4
 		objectInHand = null;
@@ -161,12 +156,12 @@ public class ControllerGrabObject : MonoBehaviour {
 
 	}
 
-	private GameObject CreateNewGrenade(Vector3 position, Quaternion rotation)
+	private void CreateNewGrenade()
 	{
 		//OLD - for single grenade spawn
-		//grenadeTemplate.GetComponent<InstantiateGrenade>().CreateGrenade();
+		grenadeTemplate.GetComponent<InstantiateGrenade>().CreateGrenade();
 		//public void CreateGrenade(Transform position, Quaternion rotation)
-		return Instantiate(grenadePrefab, position, rotation);
+		//return Instantiate(grenadePrefab, position, rotation);
 
 		//Iterate through list of grenade spawns
 		/*

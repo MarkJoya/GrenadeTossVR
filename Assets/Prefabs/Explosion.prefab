@@ -737,8 +737,8 @@ ParticleSystem:
     m_BurstCount: 1
     m_Bursts:
     - time: 0
-      minCount: 1000
-      maxCount: 1000
+      minCount: 200
+      maxCount: 200
       cycleCount: 1
       repeatInterval: 0.01
   SizeModule:
@@ -754,14 +754,14 @@ ParticleSystem:
         - serializedVersion: 2
           time: 0
           value: 1
-          inSlope: -0.0000017767861
-          outSlope: -0.0000017767861
+          inSlope: 0
+          outSlope: 0
           tangentMode: 0
         - serializedVersion: 2
-          time: 0.495224
+          time: 1
           value: 0
-          inSlope: -6.3433466
-          outSlope: -6.3433466
+          inSlope: -2
+          outSlope: -2
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -1619,7 +1619,7 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxis: 0
     inWorldSpace: 0
-    dampen: 0.4
+    dampen: 0.75
   NoiseModule:
     enabled: 0
     strength:

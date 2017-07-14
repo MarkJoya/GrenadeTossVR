@@ -8,6 +8,8 @@ TagManager:
   - Fire
   - projectile
   - Target
+  - Grenade
+  - GrenadeIcon
   layers:
   - Default
   - TransparentFX

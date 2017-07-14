@@ -8,13 +8,22 @@ public class InstantiateGrenade : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//CreateGrenade();
+		CreateGrenade();
 	}
 
-	public void CreateGrenade(Transform position, Quaternion rotation)
+	public void CreateGrenade()
 	{
-		Instantiate(grenadePrefab, transform.position, transform.rotation);
+		Instantiate(grenadePrefab, this.transform.position, this.transform.rotation);
 	
+	}
+	
+	public void OnTriggerExit(Collider other)
+	{
+		Debug.Log("EXIT");
+		if (other.CompareTag("Grenade"))
+		{
+			//CreateGrenade();
+		}
 	}
 
 }
