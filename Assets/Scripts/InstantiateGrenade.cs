@@ -8,12 +8,13 @@ public class InstantiateGrenade : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		CreateGrenade();
+		//CreateGrenade();
 	}
 
-	public void CreateGrenade()
+	public void CreateGrenade(Transform position, Quaternion rotation)
 	{
 		Instantiate(grenadePrefab, transform.position, transform.rotation);
-	}
 	
+	}
+
 }

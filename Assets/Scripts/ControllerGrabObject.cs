@@ -5,7 +5,7 @@ using UnityEngine;
 public class ControllerGrabObject : MonoBehaviour {
 
 	public GameObject explosionPrefab;
-	public GameObject grenadeTemplate;
+	public GameObject grenadePrefab;
 	public GameObject targetTemplate;
 
 	private GameObject explosion;
@@ -30,7 +30,7 @@ public class ControllerGrabObject : MonoBehaviour {
 	private void SetCollidingObject(Collider col)
 	{
 		//If  already holding object, or target object has no Rigidbody, do not grab
-		if (collidingObject || !col.GetComponent<Rigidbody>())
+		if ((collidingObject) || !col.GetComponent<Rigidbody>())
 		{
 			return;
 		}
@@ -45,6 +45,11 @@ public class ControllerGrabObject : MonoBehaviour {
 		{
 			if (collidingObject)
 			{
+				if (collidingObject.CompareTag("GrenadeIcon"))
+				{
+					GameObject grenade = CreateNewGrenade(collidingObject.transform.position, collidingObject.transform.rotation);
+					collidingObject = grenade;
+				}
 				GrabObject();
 			}
 		}
@@ -86,6 +91,7 @@ public class ControllerGrabObject : MonoBehaviour {
 	{
 		objectInHand = collidingObject;
 		collidingObject = null;
+
 		var joint = AddFixedJoint();
 		joint.connectedBody = objectInHand.GetComponent<Rigidbody>();
 	}
@@ -142,7 +148,7 @@ public class ControllerGrabObject : MonoBehaviour {
 			Destroy(explosion, 1f);
 			DestroyTargets(objectBody.position, GRENADE_RADIUS);
 			Destroy(destroyObject);
-			CreateNewGrenade();
+			//CreateNewGrenade();
 
 			//In case grenade gets regrabbed during explosion timer, disconnect everything
 			if (GetComponent<FixedJoint>())
@@ -155,9 +161,21 @@ public class ControllerGrabObject : MonoBehaviour {
 
 	}
 
-	private void CreateNewGrenade()
+	private GameObject CreateNewGrenade(Vector3 position, Quaternion rotation)
 	{
-		grenadeTemplate.GetComponent<InstantiateGrenade>().CreateGrenade();
+		//OLD - for single grenade spawn
+		//grenadeTemplate.GetComponent<InstantiateGrenade>().CreateGrenade();
+		//public void CreateGrenade(Transform position, Quaternion rotation)
+		return Instantiate(grenadePrefab, position, rotation);
+
+		//Iterate through list of grenade spawns
+		/*
+		foreach (Transform t in grenadeSpawnList.transform)
+		{
+			GameObject child = t.gameObject;
+			child.GetComponent<InstantiateGrenade>().CreateGrenade();
+		}
+		*/
 	}
 
 	private void CreateNewTarget(GameObject Target)
