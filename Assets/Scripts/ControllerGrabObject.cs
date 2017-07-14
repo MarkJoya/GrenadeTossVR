@@ -6,6 +6,7 @@ public class ControllerGrabObject : MonoBehaviour {
 
 	public GameObject explosionPrefab;
 	public GameObject grenadeTemplate;
+	public GameObject targetTemplate;
 
 	private GameObject explosion;
 
@@ -156,6 +157,15 @@ public class ControllerGrabObject : MonoBehaviour {
 		grenadeTemplate.GetComponent<InstantiateGrenade>().CreateGrenade();
 	}
 
+	private void CreateNewTarget(GameObject Target)
+	{
+		//target1Template.GetComponent<InstantiateTarget>().CreateTarget();
+		//Vector3 spawnPos = Target.GetComponent<TargetScript>().GetStartPosition();
+		//Quaternion spawnRot = Target.GetComponent<TargetScript>().GetStartRotation();
+
+		targetTemplate.GetComponent<InstantiateTarget>().CreateTarget();
+	}
+
 	private void DestroyTargets(Vector3 centre, float radius)
 	{
 		Collider[] hitColliders = Physics.OverlapSphere(centre, radius);
@@ -164,10 +174,19 @@ public class ControllerGrabObject : MonoBehaviour {
 		{
 			if (hitColliders[i].CompareTag("Target"))
 			{
-				Destroy(hitColliders[i].GetComponent<Collider>().gameObject);
+				GameObject target = hitColliders[i].GetComponent<Collider>().gameObject;
+				Destroy(target);
+				StartCoroutine(WaitAndCreateTarget(target));
+				
 			}
 			i++;
 		}
+	}
+
+	private IEnumerator WaitAndCreateTarget(GameObject target)
+	{
+		yield return new WaitForSecondsRealtime(2.0f);
+		CreateNewTarget(target);
 	}
 
 }
