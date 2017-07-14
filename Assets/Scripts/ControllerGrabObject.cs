@@ -14,6 +14,9 @@ public class ControllerGrabObject : MonoBehaviour {
 	private GameObject collidingObject;
 	private GameObject objectInHand;
 
+	private static float GRENADE_RADIUS = 2f;
+	private static float TARGET_RESPAWN_TIME = 2f; //normally 2
+
 	private SteamVR_Controller.Device Controller
 	{
 		get { return SteamVR_Controller.Input((int)trackedObj.index); }
@@ -137,7 +140,7 @@ public class ControllerGrabObject : MonoBehaviour {
 			explosionSystem.transform.position = objectBody.position;
 
 			Destroy(explosion, 1f);
-			DestroyTargets(objectBody.position, 5f);
+			DestroyTargets(objectBody.position, GRENADE_RADIUS);
 			Destroy(destroyObject);
 			CreateNewGrenade();
 
@@ -185,7 +188,7 @@ public class ControllerGrabObject : MonoBehaviour {
 
 	private IEnumerator WaitAndCreateTarget(GameObject target)
 	{
-		yield return new WaitForSecondsRealtime(2.0f);
+		yield return new WaitForSecondsRealtime(TARGET_RESPAWN_TIME);
 		CreateNewTarget(target);
 	}
 
