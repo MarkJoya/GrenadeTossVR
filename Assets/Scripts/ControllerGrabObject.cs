@@ -13,7 +13,7 @@ public class ControllerGrabObject : MonoBehaviour {
 	public GameObject explosionPrefab;
 
 	private GameObject explosion;
-	private float GRENADE_FORCE = 3f;
+	//private float GRENADE_FORCE = 3f;
 	private static float GRENADE_RADIUS = 2f;
 
 	private SteamVR_Controller.Device Controller
@@ -131,7 +131,6 @@ public class ControllerGrabObject : MonoBehaviour {
 			destroyObject.GetComponent<GrenadeScript>().SetTimer();
 
 			CreateExplosionParticles(destroyObject);
-			AddGrenadeForce(destroyObject);
 			DestroyExplosionObjects(destroyObject);
 			DestroyHeldArmedGrenade();
 
