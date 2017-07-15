@@ -129,37 +129,13 @@ public class ControllerGrabObject : MonoBehaviour {
 		{
 			destroyObject.GetComponent<GrenadeScript>().SetTimer();
 
-			//CreateExplosionParticles(destroyObject);
-
-			
-			Rigidbody objectBody = destroyObject.GetComponent<Rigidbody>();
-
-			//Set up explosion particles
-			explosion = Instantiate(explosionPrefab);
-			ParticleSystem explosionSystem = explosion.GetComponent<ParticleSystem>();
-			explosionSystem.Play();
-			explosionSystem.transform.position = objectBody.position;
-			
-
-			//DestroyExplosionObjects(destroyObject);
-
-			
-			//Destroy objects and targets in vicinity of explosion
-			Destroy(explosion, 1f);
-			DestroyTargets(objectBody.position, GRENADE_RADIUS);
-			Destroy(destroyObject);
-			
-
-			//If an armed grenade explodes in your hand, detach it from hand
-			if (objectInHand.GetComponent<GrenadeScript>().IsTimerSet() && GetComponent<FixedJoint>())
-			{
-				GetComponent<FixedJoint>().connectedBody = null;
-				Destroy(GetComponent<FixedJoint>());
-				objectInHand = null;
-			}
+			CreateExplosionParticles(destroyObject);
+			DestroyExplosionObjects(destroyObject);
+			DestroyHeldArmedGrenade();
 		}
 	}
 
+	// Creates the particle system for the grenade explosion
 	private void CreateExplosionParticles(GameObject explodingObject)
 	{
 		Rigidbody objectBody = explodingObject.GetComponent<Rigidbody>();
@@ -171,7 +147,6 @@ public class ControllerGrabObject : MonoBehaviour {
 	}
 
 	// Destroy the explosion, targets in explosion radius, and the exploding object
-	// N.B. arg is pass by ref
 	private void DestroyExplosionObjects(GameObject explodingObject)
 	{
 		Rigidbody objectBody = explodingObject.GetComponent<Rigidbody>();
@@ -182,10 +157,9 @@ public class ControllerGrabObject : MonoBehaviour {
 	}
 
 	// If an armed grenade explodes in your hand, detach it from hand
-	// N.B. arg is pass by ref
 	private void DestroyHeldArmedGrenade()
 	{
-		if (objectInHand.GetComponent<GrenadeScript>().IsTimerSet() && GetComponent<FixedJoint>())
+		if (objectInHand != null && objectInHand.GetComponent<GrenadeScript>().IsTimerSet() && GetComponent<FixedJoint>())
 		{
 			GetComponent<FixedJoint>().connectedBody = null;
 			Destroy(GetComponent<FixedJoint>());
