@@ -1,10 +1,10 @@
-Fix bug: grenades being dropped out of hand when other grenades go off
-Try: giving grenades each a script - the one in your hand should be marked. if the one in your hand explodes - disconnect everything
-
-Comment code and separate out some explosion stuff into separate script
-Separate HEIRARCHY into categories too - you can do this with empty objects set at origin and just drag them in
-
+Add force to grenades after target check destroy
+Make grenades disappear if not armed and they move out of the player space?
+Add sound
+Add scores
+Add start button and start countdown
+Add restart
 
 -----
-Git - make sure you save the scripts AND the projec before committing - otherwise project doesnt gets saved to VCS
+Git - make sure you save the scripts AND the project scene AND the project before committing - otherwise project doesnt gets saved to VCS
 Unity won't update public fields if there are compile errors
