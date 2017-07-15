@@ -13,6 +13,7 @@ public class ControllerGrabObject : MonoBehaviour {
 	public GameObject explosionPrefab;
 
 	private GameObject explosion;
+	private float GRENADE_FORCE = 3f;
 	private static float GRENADE_RADIUS = 2f;
 
 	private SteamVR_Controller.Device Controller
@@ -130,8 +131,10 @@ public class ControllerGrabObject : MonoBehaviour {
 			destroyObject.GetComponent<GrenadeScript>().SetTimer();
 
 			CreateExplosionParticles(destroyObject);
+			AddGrenadeForce(destroyObject);
 			DestroyExplosionObjects(destroyObject);
 			DestroyHeldArmedGrenade();
+
 		}
 	}
 
@@ -171,15 +174,21 @@ public class ControllerGrabObject : MonoBehaviour {
 	private void DestroyTargets(Vector3 centre, float radius)
 	{
 		Collider[] hitColliders = Physics.OverlapSphere(centre, radius);
-		int i = 0;
-		while (i < hitColliders.Length)
+		foreach (Collider hit in hitColliders)
 		{
-			if (hitColliders[i].CompareTag("Target"))
+			if (hit.CompareTag("Target"))
 			{
-				GameObject target = hitColliders[i].GetComponent<Collider>().gameObject;
+				GameObject target = hit.GetComponent<Collider>().gameObject;
 				Destroy(target);
 			}
-			i++;
 		}
 	}
+
+	/*
+	private void AddGrenadeForce(GameObject explodingObject)
+	{
+		Rigidbody objectBody = explodingObject.GetComponent<Rigidbody>();
+		objectBody.AddExplosionForce(GRENADE_FORCE, objectBody.position, GRENADE_RADIUS, 3.0F);
+	}
+	*/
 }

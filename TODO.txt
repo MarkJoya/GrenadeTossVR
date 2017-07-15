@@ -1,9 +1,11 @@
-Add force to grenades after target check destroy
+
 Make grenades disappear if not armed and they move out of the player space?
-Add sound
+Add sound - explosion and "pin" removal once grenade is armed?
 Add scores
 Add start button and start countdown
 Add restart
+Add target fragmentation upon explosion, and fade out of scene?
+	-Add explosion force draft might be useful
 
 -----
 Git - make sure you save the scripts AND the project scene AND the project before committing - otherwise project doesnt gets saved to VCS
