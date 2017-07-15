@@ -11,7 +11,6 @@ public class InstantiateTarget : MonoBehaviour {
 	private GameObject targetClone;
 	private float TARGET_RESPAWN_TIME = 2f;
 
-	private bool isOccupied;
 	private bool targetDestroyed;
 	private bool resumeUpdate = true;
 
@@ -23,6 +22,9 @@ public class InstantiateTarget : MonoBehaviour {
 		CreateTarget();
 	}
 
+	//Called every frame
+	//Checks if the target has been destroyed and creates a new one
+	//Main functionality is paused until the target has been destroyed - prevents spawning every frame
 	void Update()
 	{
 		targetDestroyed = isDestroyed(targetClone);
@@ -33,19 +35,18 @@ public class InstantiateTarget : MonoBehaviour {
 		}
 	}
 
-
-
+	//Creates a new target at spawn location
 	public void CreateTarget()
 	{
 		targetClone = Instantiate(targetPrefab, startPosition, startRotation);
 	}
 
+	//Creates a new target after specified delay time
 	private IEnumerator CreateTargetWithDelay()
 	{
 		yield return new WaitForSecondsRealtime(TARGET_RESPAWN_TIME);
 		CreateTarget();
 		resumeUpdate = true;
-
 	}
 
 	// UnityEngine overloads the == opeator for the GameObject type
@@ -56,32 +57,4 @@ public class InstantiateTarget : MonoBehaviour {
 	{
 		return gObject == null && !ReferenceEquals(gObject, null);
 	}
-
-	/*
-	public void OnTriggerExit(Collider other)
-	{
-		if (other.CompareTag("Target"))
-		{
-			isOccupied = false;
-		}
-	}
-
-	public void OnTriggerEntry(Collider other)
-	{
-		if (other.CompareTag("Target"))
-		{
-			isOccupied = true;
-		}
-	}
-
-	public void OnTriggerStay(Collider other)
-	{
-		if (other.CompareTag("Target"))
-		{
-			isOccupied = true;
-		}
-	}
-	*/
-
-
 }
