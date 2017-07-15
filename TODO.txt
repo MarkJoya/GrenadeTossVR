@@ -8,4 +8,5 @@ Make grenades disappear if not armed and they move out of the player space?
 
 -----
 Git - make sure you save the scripts AND the project scene AND the project before committing - otherwise project doesnt gets saved to VCS
+Don't forget to add from time to time to include new files
 Unity won't update public fields if there are compile errors
