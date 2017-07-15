@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ControllerGrabObject : MonoBehaviour {
 
-	//Steam controller stuff
+	// Steam controller stuff
 	private SteamVR_TrackedObject trackedObj;
 	private GameObject collidingObject;
 	private GameObject objectInHand;
@@ -27,18 +27,18 @@ public class ControllerGrabObject : MonoBehaviour {
 
 	private void SetCollidingObject(Collider col)
 	{
-		//If  already holding object, or target object has no Rigidbody, do not grab
+		// If  already holding object, or target object has no Rigidbody, do not grab
 		if ((collidingObject) || !col.GetComponent<Rigidbody>())
 		{
 			return;
 		}
-		//Otherwise assign object as a potential grab target
+		// Otherwise assign object as a potential grab target
 		collidingObject = col.gameObject;
 	}
 
 	// Update is called once per frame
 	void Update() {
-		
+
 		if (Controller.GetHairTriggerDown())
 		{
 			if (collidingObject)
@@ -56,19 +56,19 @@ public class ControllerGrabObject : MonoBehaviour {
 		}
 	}
 
-	//Sets an object for collision if triggers enter each other
+	// Sets an object for collision if triggers enter each other
 	public void OnTriggerEnter(Collider other)
 	{
 		SetCollidingObject(other);
 	}
 
-	//Sets an object for collision if triggers overlap for a while
+	// Sets an object for collision if triggers overlap for a while
 	public void OnTriggerStay(Collider other)
 	{
 		SetCollidingObject(other);
 	}
 
-	//Removes other object for collision if they don't overlap anymore
+	// Removes other object for collision if they don't overlap anymore
 	public void OnTriggerExit(Collider other)
 	{
 		if (!collidingObject)
@@ -88,7 +88,7 @@ public class ControllerGrabObject : MonoBehaviour {
 		joint.connectedBody = objectInHand.GetComponent<Rigidbody>();
 	}
 
-	//Add joint which handles movement and breaking strength
+	// Add joint which handles movement and breaking strength
 	private FixedJoint AddFixedJoint()
 	{
 		FixedJoint fx = gameObject.AddComponent<FixedJoint>();
@@ -97,23 +97,25 @@ public class ControllerGrabObject : MonoBehaviour {
 		return fx;
 	}
 
+	// Releases object in hand and starts explosion countdown
 	private void ReleaseObject()
 	{
 		if (GetComponent<FixedJoint>())
 		{
 			GetComponent<FixedJoint>().connectedBody = null;
 			Destroy(GetComponent<FixedJoint>());
-			
+
 			Rigidbody objectBody = objectInHand.GetComponent<Rigidbody>();
 			objectBody.velocity = Controller.velocity;
 			objectBody.angularVelocity = Controller.angularVelocity;
 
-			ExplodeStart(objectInHand);	
+			if (objectInHand.CompareTag("Grenade")) ExplodeStart(objectInHand);
 		}
 		objectInHand = null;
 
 	}
 
+	// Starts the Co-routine for an explosion - needed in order to set a delay
 	private void ExplodeStart(GameObject destroyObject)
 	{
 		StartCoroutine(Explosion(destroyObject));
@@ -121,32 +123,77 @@ public class ControllerGrabObject : MonoBehaviour {
 
 	private IEnumerator Explosion(GameObject destroyObject)
 	{
-		//TODO - set ignore collision between controller and grenade once thrown to prevent regrabbing of thrown grenade
 		yield return new WaitForSecondsRealtime(2.0f);
+
 		if (destroyObject != null)
 		{
+			destroyObject.GetComponent<GrenadeScript>().SetTimer();
+
+			//CreateExplosionParticles(destroyObject);
+
+			
 			Rigidbody objectBody = destroyObject.GetComponent<Rigidbody>();
+
+			//Set up explosion particles
 			explosion = Instantiate(explosionPrefab);
 			ParticleSystem explosionSystem = explosion.GetComponent<ParticleSystem>();
 			explosionSystem.Play();
-
 			explosionSystem.transform.position = objectBody.position;
+			
 
+			//DestroyExplosionObjects(destroyObject);
+
+			
+			//Destroy objects and targets in vicinity of explosion
 			Destroy(explosion, 1f);
 			DestroyTargets(objectBody.position, GRENADE_RADIUS);
 			Destroy(destroyObject);
+			
 
-			//In case grenade gets regrabbed during explosion timer, disconnect everything
-			if (GetComponent<FixedJoint>())
+			//If an armed grenade explodes in your hand, detach it from hand
+			if (objectInHand.GetComponent<GrenadeScript>().IsTimerSet() && GetComponent<FixedJoint>())
 			{
 				GetComponent<FixedJoint>().connectedBody = null;
 				Destroy(GetComponent<FixedJoint>());
 				objectInHand = null;
 			}
 		}
-
 	}
 
+	private void CreateExplosionParticles(GameObject explodingObject)
+	{
+		Rigidbody objectBody = explodingObject.GetComponent<Rigidbody>();
+
+		explosion = Instantiate(explosionPrefab);
+		ParticleSystem explosionSystem = explosion.GetComponent<ParticleSystem>();
+		explosionSystem.Play();
+		explosionSystem.transform.position = objectBody.position;
+	}
+
+	// Destroy the explosion, targets in explosion radius, and the exploding object
+	// N.B. arg is pass by ref
+	private void DestroyExplosionObjects(GameObject explodingObject)
+	{
+		Rigidbody objectBody = explodingObject.GetComponent<Rigidbody>();
+
+		Destroy(explosion, 1f);
+		DestroyTargets(objectBody.position, GRENADE_RADIUS);
+		Destroy(explodingObject);
+	}
+
+	// If an armed grenade explodes in your hand, detach it from hand
+	// N.B. arg is pass by ref
+	private void DestroyHeldArmedGrenade()
+	{
+		if (objectInHand.GetComponent<GrenadeScript>().IsTimerSet() && GetComponent<FixedJoint>())
+		{
+			GetComponent<FixedJoint>().connectedBody = null;
+			Destroy(GetComponent<FixedJoint>());
+			objectInHand = null;
+		}
+	}
+
+	// Destroys target colliders within a radius of a centre position
 	private void DestroyTargets(Vector3 centre, float radius)
 	{
 		Collider[] hitColliders = Physics.OverlapSphere(centre, radius);

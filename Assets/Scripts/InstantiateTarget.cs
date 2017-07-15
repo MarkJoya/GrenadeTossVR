@@ -22,9 +22,9 @@ public class InstantiateTarget : MonoBehaviour {
 		CreateTarget();
 	}
 
-	//Called every frame
-	//Checks if the target has been destroyed and creates a new one
-	//Main functionality is paused until the target has been destroyed - prevents spawning every frame
+	// Called every frame
+	// Checks if the target has been destroyed and creates a new one
+	// Main functionality is paused until the target has been destroyed - prevents spawning every frame
 	void Update()
 	{
 		targetDestroyed = isDestroyed(targetClone);
@@ -35,13 +35,13 @@ public class InstantiateTarget : MonoBehaviour {
 		}
 	}
 
-	//Creates a new target at spawn location
+	// Creates a new target at spawn location
 	public void CreateTarget()
 	{
 		targetClone = Instantiate(targetPrefab, startPosition, startRotation);
 	}
 
-	//Creates a new target after specified delay time
+	// Creates a new target after specified delay time
 	private IEnumerator CreateTargetWithDelay()
 	{
 		yield return new WaitForSecondsRealtime(TARGET_RESPAWN_TIME);
