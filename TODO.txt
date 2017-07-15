@@ -1,4 +1,6 @@
 Add sound - explosion and "pin" removal once grenade is armed?
+	-http://soundbible.com/tags-explosion.html
+	-make sure you put attribution if used
 Add scores
 Add start button and start countdown
 Add restart
