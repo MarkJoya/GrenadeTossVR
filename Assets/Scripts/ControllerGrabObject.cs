@@ -173,13 +173,13 @@ public class ControllerGrabObject : MonoBehaviour {
 		*/
 	}
 
-	private void CreateNewTarget(GameObject Target)
+	private void CreateNewTarget(GameObject target)
 	{
 		//target1Template.GetComponent<InstantiateTarget>().CreateTarget();
 		//Vector3 spawnPos = Target.GetComponent<TargetScript>().GetStartPosition();
 		//Quaternion spawnRot = Target.GetComponent<TargetScript>().GetStartRotation();
 
-		targetTemplate.GetComponent<InstantiateTarget>().CreateTarget();
+		//targetTemplate.GetComponent<InstantiateTarget>().CreateTarget();
 	}
 
 	private void DestroyTargets(Vector3 centre, float radius)

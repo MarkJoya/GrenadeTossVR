@@ -2,6 +2,7 @@ Regenerate target
 	spawn each prefab with a property of its original location
 	then when destroyed retrieve that location and spawn it there?
 Make targets regenerate in their own spots
+Have to extend this to grenades too once there are multiple
 Fix bug: grenades being dropped out of hand when other grenades go off
 
 Comment code and separate out some explosion stuff into separate script
