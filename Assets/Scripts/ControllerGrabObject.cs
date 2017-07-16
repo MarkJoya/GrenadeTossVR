@@ -9,8 +9,8 @@ public class ControllerGrabObject : MonoBehaviour {
 	private GameObject collidingObject;
 	private GameObject objectInHand;
 
-
 	public GameObject explosionPrefab;
+	public GameObject scoreText;
 
 	private GameObject explosion;
 	//private float GRENADE_FORCE = 3f;
@@ -179,6 +179,7 @@ public class ControllerGrabObject : MonoBehaviour {
 			{
 				GameObject target = hit.GetComponent<Collider>().gameObject;
 				Destroy(target);
+				scoreText.GetComponent<ScoreBoard>().AddPoint();
 			}
 		}
 	}
