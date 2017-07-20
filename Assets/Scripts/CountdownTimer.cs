@@ -9,23 +9,26 @@ public class CountdownTimer : MonoBehaviour {
 	private double timeLeft = 15;
 
 	private bool timerOn = false;
-	
+
 	public void Update()
 	{
 		//Display instructions if timer is not on
 		if (!timerOn)
 		{
+			txtRef.fontSize = 2;
 			txtRef.text = "Squeeze yellow box to start";
 		}
 		//Show time remaining if timer is started
 		else if (timeLeft > 0)
 		{
+			txtRef.fontSize = 5;
 			timeLeft -= Time.deltaTime;
 			txtRef.text = timeLeft.ToString("F2");
 		}
 		//When time runs out, show final score
 		else
 		{
+			txtRef.fontSize = 5;
 			int score = scoreTextObject.GetComponent<ScoreBoard>().GetScore();
 			txtRef.text = "Score: " + score.ToString();
 		}
