@@ -1,6 +1,7 @@
-Add scores
-Add start button and start countdown
-Add restart
+Stop scoring once countdown hits 0
+Display final score on canvases
+Add start button and menu?
+Make sure start button also functions as restart
 Add sound - explosion and "pin" removal once grenade is armed?
 	-http://soundbible.com/tags-explosion.html
 	-make sure you put attribution if used

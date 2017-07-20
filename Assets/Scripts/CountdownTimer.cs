@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class CountdownTimer : MonoBehaviour {
@@ -16,7 +14,12 @@ public class CountdownTimer : MonoBehaviour {
 	// Update is called once per frame
 	public void Update()
 	{
-		timeLeft -= Time.deltaTime;
+		if (timeLeft > 0)
+		{
+			timeLeft -= Time.deltaTime;
+		}
 		txtRef.text = timeLeft.ToString("F0");
 	}
+
+	//public void Time
 }
