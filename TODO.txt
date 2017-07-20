@@ -1,9 +1,9 @@
-Add sound - explosion and "pin" removal once grenade is armed?
-	-http://soundbible.com/tags-explosion.html
-	-make sure you put attribution if used
 Add scores
 Add start button and start countdown
 Add restart
+Add sound - explosion and "pin" removal once grenade is armed?
+	-http://soundbible.com/tags-explosion.html
+	-make sure you put attribution if used
 Add target fragmentation upon explosion, and fade out of scene?
 	-Add explosion force draft might be useful
 Make grenades disappear if not armed and they move out of the player space?
