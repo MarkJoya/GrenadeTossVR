@@ -9,7 +9,16 @@ Add target fragmentation upon explosion, and fade out of scene?
 	-Add explosion force draft might be useful
 Make grenades disappear if not armed and they move out of the player space?
 
+Make game instructions more explicit
+
 -----
 Git - make sure you save the scripts AND the project scene AND the project before committing - otherwise project doesnt gets saved to VCS
 Don't forget to add from time to time to include new files
 Unity won't update public fields if there are compile errors
+
+Simone review-----
+more instructions
+change grenade model to indicate its a bomb
+red boxes different sizes
+change font for writing - which one?
+Instructino writing is too high

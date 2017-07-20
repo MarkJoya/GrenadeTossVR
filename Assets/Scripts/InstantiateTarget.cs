@@ -29,8 +29,15 @@ public class InstantiateTarget : MonoBehaviour {
 	void Update()
 	{
 		targetDestroyed = isDestroyed(targetClone);
-		double timeLeft = timerText.GetComponent<CountdownTimer>().GetTimeLeft();
-		if (resumeUpdate && targetDestroyed && timeLeft > 0)
+		CountdownTimer script = timerText.GetComponent<CountdownTimer>();
+		double timeLeft = script.GetTimeLeft();
+		/*
+		if (script.IsPreTimerOn() && targetDestroyed)
+		{
+			CreateTarget();
+			resumeUpdate = false;
+		}
+		else */if (resumeUpdate && targetDestroyed && timeLeft > 0)
 		{
 			StartCoroutine(CreateTargetWithDelay());
 			resumeUpdate = false;
@@ -41,6 +48,7 @@ public class InstantiateTarget : MonoBehaviour {
 	public void CreateTarget()
 	{
 		targetClone = Instantiate(targetPrefab, startPosition, startRotation);
+		//resumeUpdate = true;
 	}
 
 	// Creates a new target after specified delay time
