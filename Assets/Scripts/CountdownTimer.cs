@@ -7,7 +7,7 @@ public class CountdownTimer : MonoBehaviour {
 	public GameObject scoreTextObject;
 
 	private double preTimeLeft = 3;
-	private double timeLeft = 15;
+	private double timeLeft = 20;
 
 	private bool timerOn = false;
 	private bool preTimerOn = false;
@@ -39,7 +39,6 @@ public class CountdownTimer : MonoBehaviour {
 		//When time runs out, show final score
 		else
 		{
-			timerOn = false;
 			txtRef.fontSize = 5;
 			int score = scoreTextObject.GetComponent<ScoreBoard>().GetScore();
 			txtRef.text = "Score: " + score.ToString();

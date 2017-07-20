@@ -61,7 +61,7 @@ public class ControllerGrabObject : MonoBehaviour {
 
 		if (timerText.GetComponent<CountdownTimer>().GetTimeLeft() <= 0)
 		{
-			DestroyTargets(new Vector3(0, 0, 0), 50);
+			DestroyTargets(new Vector3(0, 0, 0), 50, false);
 		}
 	}
 
@@ -90,7 +90,7 @@ public class ControllerGrabObject : MonoBehaviour {
 
 	private void GrabObject()
 	{
-		if (collidingObject.CompareTag("StartButton") && !timerText.GetComponent<CountdownTimer>().IsTimerOn())
+		if (collidingObject.CompareTag("StartButton"))// && !timerText.GetComponent<CountdownTimer>().IsTimerOn())
 		{
 			SetTimers();
 		}
@@ -179,7 +179,7 @@ public class ControllerGrabObject : MonoBehaviour {
 		Rigidbody objectBody = explodingObject.GetComponent<Rigidbody>();
 
 		Destroy(explosion, 1f);
-		DestroyTargets(objectBody.position, GRENADE_RADIUS);
+		DestroyTargets(objectBody.position, GRENADE_RADIUS, true);
 		Destroy(explodingObject);
 	}
 
@@ -195,7 +195,7 @@ public class ControllerGrabObject : MonoBehaviour {
 	}
 
 	// Destroys target colliders within a radius of a centre position
-	private void DestroyTargets(Vector3 centre, float radius)
+	private void DestroyTargets(Vector3 centre, float radius, bool scoreHit)
 	{
 		Collider[] hitColliders = Physics.OverlapSphere(centre, radius);
 		foreach (Collider hit in hitColliders)
@@ -204,7 +204,7 @@ public class ControllerGrabObject : MonoBehaviour {
 			{
 				GameObject target = hit.GetComponent<Collider>().gameObject;
 				Destroy(target);
-				scoreText.GetComponent<ScoreBoard>().AddPoint();
+				if (scoreHit) scoreText.GetComponent<ScoreBoard>().AddPoint();
 			}
 		}
 	}
