@@ -10,6 +10,7 @@ public class CountdownTimer : MonoBehaviour {
 	private double timeLeft = 15;
 
 	private bool timerOn = false;
+	private bool preTimerOn = false;
 
 	public void Update()
 	{
@@ -30,6 +31,7 @@ public class CountdownTimer : MonoBehaviour {
 			}
 			else
 			{
+				preTimerOn = false;
 				timeLeft -= Time.deltaTime;
 				txtRef.text = timeLeft.ToString("F2");
 			}
@@ -37,6 +39,7 @@ public class CountdownTimer : MonoBehaviour {
 		//When time runs out, show final score
 		else
 		{
+			timerOn = false;
 			txtRef.fontSize = 5;
 			int score = scoreTextObject.GetComponent<ScoreBoard>().GetScore();
 			txtRef.text = "Score: " + score.ToString();
@@ -51,10 +54,16 @@ public class CountdownTimer : MonoBehaviour {
 	public void StartTimer()
 	{
 		timerOn = true;
+		preTimerOn = true;
 	}
 
 	public bool IsTimerOn()
 	{
 		return timerOn;
+	}
+
+	public bool IsPreTimerOn()
+	{
+		return preTimerOn;
 	}
 }

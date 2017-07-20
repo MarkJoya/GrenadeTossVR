@@ -14,8 +14,10 @@ public class ScoreBoard : MonoBehaviour {
 
 	public void AddPoint()
 	{
-		//Don't increment score if game is finished
-		if (timerTextObject.GetComponent<CountdownTimer>().GetTimeLeft() > 0)
+		CountdownTimer script = timerTextObject.GetComponent<CountdownTimer>();
+
+		//Don't increment score if game hasn't started or is finished
+		if (script.IsTimerOn() && !script.IsPreTimerOn())
 		{
 			score++;
 		}

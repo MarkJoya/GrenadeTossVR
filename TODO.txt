@@ -1,6 +1,4 @@
-Add start button and menu?
-	-Fix start text size
-	-Use observer pattern to update all the timer texts
+Respawn targets on game start
 Make sure start button also functions as restart
 Add sound - explosion and "pin" removal once grenade is armed?
 	-http://soundbible.com/tags-explosion.html
