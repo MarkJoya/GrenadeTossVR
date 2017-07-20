@@ -13,6 +13,8 @@ public class ControllerGrabObject : MonoBehaviour {
 	public GameObject scoreText;
 	public GameObject timerText;
 
+	public GameObject timerCollection;
+
 	private GameObject explosion;
 	//private float GRENADE_FORCE = 3f;
 	private static float GRENADE_RADIUS = 2f;
@@ -88,11 +90,28 @@ public class ControllerGrabObject : MonoBehaviour {
 
 	private void GrabObject()
 	{
-		objectInHand = collidingObject;
-		collidingObject = null;
+		if (collidingObject.CompareTag("StartButton") && !timerText.GetComponent<CountdownTimer>().IsTimerOn())
+		{
+			SetTimers();
+		}
+		else
+		{
+			objectInHand = collidingObject;
+			collidingObject = null;
 
-		var joint = AddFixedJoint();
-		joint.connectedBody = objectInHand.GetComponent<Rigidbody>();
+			var joint = AddFixedJoint();
+			joint.connectedBody = objectInHand.GetComponent<Rigidbody>();
+		}
+	}
+
+	//Observer pattern to start all timers
+	public void SetTimers()
+	{
+		CountdownTimer[] timerList = timerCollection.GetComponentsInChildren<CountdownTimer>();
+		foreach (CountdownTimer timer in timerList)
+		{
+			timer.StartTimer();
+		}
 	}
 
 	// Add joint which handles movement and breaking strength

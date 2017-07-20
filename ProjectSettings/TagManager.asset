@@ -10,6 +10,7 @@ TagManager:
   - Target
   - Grenade
   - GrenadeIcon
+  - StartButton
   layers:
   - Default
   - TransparentFX

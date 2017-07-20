@@ -11,12 +11,6 @@ public class GrenadeScript : MonoBehaviour {
 	{
 		timerSet = false;	
 	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-		
-	}
 
 	// Sets timer to indicate that this grenade's explosion timer is ticking
 	public void SetTimer()
