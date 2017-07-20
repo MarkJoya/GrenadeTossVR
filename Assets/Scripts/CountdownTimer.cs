@@ -4,22 +4,26 @@ using UnityEngine.UI;
 public class CountdownTimer : MonoBehaviour {
 
 	public Text txtRef;
-	private double timeLeft;
+	public GameObject scoreTextObject;
 
-	public void Start()
-	{
-		timeLeft = 60;
-	}
+	private double timeLeft = 10;
 	
-	// Update is called once per frame
 	public void Update()
 	{
 		if (timeLeft > 0)
 		{
 			timeLeft -= Time.deltaTime;
+			txtRef.text = timeLeft.ToString("F2");
 		}
-		txtRef.text = timeLeft.ToString("F0");
+		else
+		{
+			int score = scoreTextObject.GetComponent<ScoreBoard>().GetScore();
+			txtRef.text = "Score: " + score.ToString();
+		}
 	}
 
-	//public void Time
+	public double GetTimeLeft()
+	{
+		return timeLeft;
+	}
 }
