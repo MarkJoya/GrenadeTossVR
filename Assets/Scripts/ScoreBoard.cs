@@ -32,4 +32,9 @@ public class ScoreBoard : MonoBehaviour {
 	{
 		return this.score;
 	}
+
+	public void ResetScore()
+	{
+		score = 0;
+	}
 }

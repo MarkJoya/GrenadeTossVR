@@ -1,5 +1,6 @@
 Respawn targets on game start
 Make sure start button also functions as restart
+Display instruction text to press yellow button to restart after game finish
 Fade out transition to restart - and respawn game objects
 Add sound - explosion and "pin" removal once grenade is armed?
 	-http://soundbible.com/tags-explosion.html

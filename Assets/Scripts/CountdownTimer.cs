@@ -6,8 +6,11 @@ public class CountdownTimer : MonoBehaviour {
 	public Text txtRef;
 	public GameObject scoreTextObject;
 
-	private double preTimeLeft = 3;
-	private double timeLeft = 20;
+	private static double PRE_TIME = 3;
+	private static double GAME_TIME = 20;
+
+	private double preTimeLeft = PRE_TIME;
+	private double timeLeft = GAME_TIME;
 
 	private bool timerOn = false;
 	private bool preTimerOn = false;
@@ -52,6 +55,9 @@ public class CountdownTimer : MonoBehaviour {
 
 	public void StartTimer()
 	{
+		preTimeLeft = PRE_TIME;
+		timeLeft = GAME_TIME;
+		scoreTextObject.GetComponent<ScoreBoard>().ResetScore();
 		timerOn = true;
 		preTimerOn = true;
 	}
