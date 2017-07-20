@@ -6,6 +6,7 @@ public class CountdownTimer : MonoBehaviour {
 	public Text txtRef;
 	public GameObject scoreTextObject;
 
+	private double preTimeLeft = 3;
 	private double timeLeft = 15;
 
 	private bool timerOn = false;
@@ -22,8 +23,16 @@ public class CountdownTimer : MonoBehaviour {
 		else if (timeLeft > 0)
 		{
 			txtRef.fontSize = 5;
-			timeLeft -= Time.deltaTime;
-			txtRef.text = timeLeft.ToString("F2");
+			if (preTimeLeft > 0)
+			{
+				preTimeLeft -= Time.deltaTime;
+				txtRef.text = "Start in.. " + preTimeLeft.ToString("F2");
+			}
+			else
+			{
+				timeLeft -= Time.deltaTime;
+				txtRef.text = timeLeft.ToString("F2");
+			}
 		}
 		//When time runs out, show final score
 		else
