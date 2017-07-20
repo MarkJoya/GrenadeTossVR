@@ -6,7 +6,7 @@ public class CountdownTimer : MonoBehaviour {
 	public Text txtRef;
 	public GameObject scoreTextObject;
 
-	private double timeLeft = 10;
+	private double timeLeft = 15;
 	
 	public void Update()
 	{

@@ -53,3 +53,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetPrefab: {fileID: 1219077591761738, guid: c4c6137d2bf9ff84dbf3e959fbddc1d6,
     type: 2}
+  timerText: {fileID: 1193739640863446, guid: fd7cd88fb6e8ab945bc80879411807f0, type: 2}

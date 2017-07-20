@@ -5,6 +5,7 @@ using UnityEngine;
 public class InstantiateTarget : MonoBehaviour {
 
 	public GameObject targetPrefab;
+	public GameObject timerText;
 	private Vector3 startPosition;
 	private Quaternion startRotation;
 
@@ -28,7 +29,8 @@ public class InstantiateTarget : MonoBehaviour {
 	void Update()
 	{
 		targetDestroyed = isDestroyed(targetClone);
-		if (resumeUpdate && targetDestroyed)
+		double timeLeft = timerText.GetComponent<CountdownTimer>().GetTimeLeft();
+		if (resumeUpdate && targetDestroyed && timeLeft > 0)
 		{
 			StartCoroutine(CreateTargetWithDelay());
 			resumeUpdate = false;

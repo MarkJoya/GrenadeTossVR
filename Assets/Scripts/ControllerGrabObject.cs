@@ -11,6 +11,7 @@ public class ControllerGrabObject : MonoBehaviour {
 
 	public GameObject explosionPrefab;
 	public GameObject scoreText;
+	public GameObject timerText;
 
 	private GameObject explosion;
 	//private float GRENADE_FORCE = 3f;
@@ -54,6 +55,11 @@ public class ControllerGrabObject : MonoBehaviour {
 			{
 				ReleaseObject();
 			}
+		}
+
+		if (timerText.GetComponent<CountdownTimer>().GetTimeLeft() <= 0)
+		{
+			DestroyTargets(new Vector3(0, 0, 0), 50);
 		}
 	}
 
