@@ -17,6 +17,7 @@ Don't forget to add from time to time to include new files
 Unity won't update public fields if there are compile errors
 
 Simone review-----
+yellow box instructions are vague
 more instructions
 change grenade model to indicate its a bomb
 red boxes different sizes
