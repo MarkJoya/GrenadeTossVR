@@ -6,8 +6,11 @@ public class InstantiateTarget : MonoBehaviour {
 
 	public GameObject targetPrefab;
 	public GameObject timerText;
+	
 	private Vector3 startPosition;
 	private Quaternion startRotation;
+
+	private AudioSource targetAppear;
 
 	private GameObject targetClone;
 	private float TARGET_RESPAWN_TIME = 2f;
@@ -20,6 +23,7 @@ public class InstantiateTarget : MonoBehaviour {
 	{
 		startPosition = transform.position;
 		startRotation = transform.rotation;
+		targetAppear = GetComponent<AudioSource>();
 		CreateTarget();
 	}
 
@@ -48,6 +52,7 @@ public class InstantiateTarget : MonoBehaviour {
 	public void CreateTarget()
 	{
 		targetClone = Instantiate(targetPrefab, startPosition, startRotation);
+		targetAppear.Play();
 		//resumeUpdate = true;
 	}
 
