@@ -1,5 +1,5 @@
 # GrenadeTossVR
-A grenade tossing VR game.
+A SteamVR game where the player destroys targets with grenades.
 
 ## Built With
 
